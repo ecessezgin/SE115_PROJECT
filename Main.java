@@ -265,7 +265,29 @@ public class Main {
     }
     
     public static String bestWeekOfMonth(int month) { 
-        return "DUMMY"; 
+        int bestWeek = 0;
+    int bestValue = Integer.MIN_VALUE;
+
+    for (int w = 0; w < 4; w++) {
+
+        int sum = 0;
+
+        int start = w * 7;
+        int end = start + 7;
+
+        for (int d = start; d < end; d++) {
+            for (int c = 0; c < COMMS; c++) {
+                sum += profit[month][d][c];
+            }
+        }
+
+        if (sum > bestValue) {
+            bestValue = sum;
+            bestWeek = w;
+        }
+    }
+
+    return "" + (bestWeek + 1);
     }
 
     public static void main(String[] args) {

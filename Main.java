@@ -210,11 +210,58 @@ public class Main {
     }
 
     public static int biggestDailySwing(int month) { 
-        return 1234; 
+         int bestDay = 1;
+    int bestSwing = 0;
+
+    int prev = 0;
+    for (int c = 0; c < COMMS; c++) {
+        prev += profit[month][0][c];
+    }
+
+    for (int d = 1; d < DAYS; d++) {
+
+        int current = 0;
+        for (int c = 0; c < COMMS; c++) {
+            current += profit[month][d][c];
+        }
+
+        int swing = Math.abs(current - prev);
+
+        if (swing > bestSwing) {
+            bestSwing = swing;
+            bestDay = d;
+        }
+
+        prev = current;
+    }
+
+    return bestDay + 1;
     }
     
     public static String compareTwoCommodities(String c1, String c2) { 
-        return "DUMMY is better by 1234"; 
+         int i1 = -1;
+    int i2 = -1;
+
+    for (int i = 0; i < COMMS; i++) {
+        if (commodities[i].equals(c1)) i1 = i;
+        if (commodities[i].equals(c2)) i2 = i;
+    }
+
+    int sum1 = 0;
+    int sum2 = 0;
+
+    for (int m = 0; m < MONTHS; m++) {
+        for (int d = 0; d < DAYS; d++) {
+            sum1 += profit[m][d][i1];
+            sum2 += profit[m][d][i2];
+        }
+    }
+
+    if (sum1 >= sum2) {
+        return c1 + " is better by " + (sum1 - sum2);
+    } else {
+        return c2 + " is better by " + (sum2 - sum1);
+    } 
     }
     
     public static String bestWeekOfMonth(int month) { 

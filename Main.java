@@ -157,11 +157,56 @@ public class Main {
     }
 
     public static int consecutiveLossDays(String comm) { 
-        return 1234; 
+         int index = -1;
+
+    for (int i = 0; i < COMMS; i++) {
+        if (commodities[i].equals(comm)) {
+            index = i;
+            break;
+        }
+    }
+
+    int maxStreak = 0;
+    int current = 0;
+
+    for (int m = 0; m < MONTHS; m++) {
+        for (int d = 0; d < DAYS; d++) {
+
+            if (profit[m][d][index] < 0) {
+                current++;
+                if (current > maxStreak) {
+                    maxStreak = current;
+                }
+            } else {
+                current = 0;
+            }
+        }
+    }
+
+    return maxStreak;
     }
     
     public static int daysAboveThreshold(String comm, int threshold) { 
-        return 1234; 
+         int index = -1;
+
+    for (int i = 0; i < COMMS; i++) {
+        if (commodities[i].equals(comm)) {
+            index = i;
+            break;
+        }
+    }
+
+    int count = 0;
+
+    for (int m = 0; m < MONTHS; m++) {
+        for (int d = 0; d < DAYS; d++) {
+            if (profit[m][d][index] > threshold) {
+                count++;
+            }
+        }
+    }
+
+    return count;
     }
 
     public static int biggestDailySwing(int month) { 
